@@ -30,18 +30,20 @@ describe GildedRose do
       end
     end
 
-    context "Non specialized items check quality floor" do
+    context "standard items quality floor at zero" do
       let(:item) { Item.new(name= "Bread", sell_in= 10, quality = 0)}
       it "quality cannot be less than zero" do
         expect{ gilded_rose.update_quality}.not_to change{item.quality}
       end
     end
 
+
     context "Sulfuras, Hand of Ragnaros scenarios" do
-      let(:item) { Item.new(name= "Sulfuras, Hand of Ragnaros", sell_in= 10, quality = 20)}
+      let(:item) { Item.new(name= "Sulfuras, Hand of Ragnaros", sell_in= 10, quality = 80)}
       it "sell_in and quality will not change" do
         expect{ gilded_rose.update_quality}.not_to change{item.sell_in}
         expect{ gilded_rose.update_quality}.not_to change{item.quality}
+        expect(item.quality).to eq(80)
       end
     end
 
@@ -85,7 +87,7 @@ describe GildedRose do
 
   context "Backstage passes to a TAFKAL80ETC concert scenarios" do
     let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 0, quality = 20)}
-    it "sell_in and quality will decrase by 1 when < 0 days" do
+    it "sell_in will decrase by 1 when and quality will be 0 if days < 0 " do
       expect{ gilded_rose.update_quality}.to change{item.sell_in}.by(-1)
       expect(item.quality).to eq(0)
     end
