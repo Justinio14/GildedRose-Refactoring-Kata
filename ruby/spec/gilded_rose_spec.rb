@@ -73,14 +73,17 @@ describe GildedRose do
   context "Aged Brie scenarios" do
       let(:item) { Item.new(name= "Aged Brie", sell_in= 10, quality = 20)}
       it "sell_in will decrease and quality will increase" do
-        expect{ gilded_rose.update_quality}.to change{item.sell_in}.by(-1)
-        expect{ gilded_rose.update_quality}.to change{item.quality}.by(1)
+        gilded_rose.update_quality
+        expect(gilded_rose.sell_in).to eq(9)
+        expect(gilded_rose.quality).to eq(21)
       end
 
     describe "Testing quality cap" do
       let(:item) { Item.new(name= "Aged Brie", sell_in= 10, quality = 50)}
-      it "quality will go beyond 50" do
-        expect{ gilded_rose.update_quality}.not_to change{item.quality}
+      it "quality will not go beyond 50" do
+        gilded_rose.update_quality
+        expect(gilded_rose.sell_in).to eq(9)
+        expect(gilded_rose.quality).to eq(50)
       end
     end
   end

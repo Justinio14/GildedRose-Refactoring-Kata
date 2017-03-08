@@ -1,6 +1,6 @@
 class GildedRose
 
-attr_reader :name, :quality, :sell_in
+  attr_reader :name, :sell_in, :quality
 
   def initialize(items)
     #@items = []
@@ -24,41 +24,6 @@ attr_reader :name, :quality, :sell_in
     end
   end
 
-  def aged_brie
-    @quality < QUALITY_CAP  ? @quality += 1 : @quality = QUALITY_CAP
-  end
-
-  def sulfuras
-    @quality = SULFURAS_QUALITY
-  end
-
-  def backstage
-    if @sell_in < 0
-      @quality = QUALITY_FLOOR
-    elsif @sell_in < 6 && @quality < (QUALITY_CAP - 3)
-      @quality += 3
-    elsif @sell_in < 11 && @quality < (QUALITY_CAP - 2)
-      @quality += 2
-    elsif @sell_in > 10 && @quality < (QUALITY_CAP - 1)
-      @quality += 1
-    else
-      @quality = QUALITY_CAP
-    end
-  end
-
-  def standard
-    if @sell_in < 0 &&  @quality > (QUALITY_FLOOR + 2)
-      @quality -= 2
-    elsif @sell_in >= 0 &&  @quality > (QUALITY_FLOOR + 1)
-      @quality -= 1
-    else
-      @quality = QUALITY_FLOOR
-    end
-  end
-
-  def sell_in_reduce
-    @name == @specials[2] ? @sell_in : @sell_in -= 1
-  end
 
   def update_quality()
     item_display
@@ -73,6 +38,45 @@ attr_reader :name, :quality, :sell_in
       standard
     end
   end
+
+  private
+
+    def aged_brie
+      @quality < QUALITY_CAP  ? @quality += 1 : @quality = QUALITY_CAP
+    end
+
+    def sulfuras
+      @quality = SULFURAS_QUALITY
+    end
+
+    def backstage
+      if @sell_in < 0
+        @quality = QUALITY_FLOOR
+      elsif @sell_in < 6 && @quality < (QUALITY_CAP - 3)
+        @quality += 3
+      elsif @sell_in < 11 && @quality < (QUALITY_CAP - 2)
+        @quality += 2
+      elsif @sell_in > 10 && @quality < (QUALITY_CAP - 1)
+        @quality += 1
+      else
+        @quality = QUALITY_CAP
+      end
+    end
+
+    def standard
+      if @sell_in < 0 &&  @quality > (QUALITY_FLOOR + 2)
+        @quality -= 2
+      elsif @sell_in >= 0 &&  @quality > (QUALITY_FLOOR + 1)
+        @quality -= 1
+      else
+        @quality = QUALITY_FLOOR
+      end
+    end
+
+    def sell_in_reduce
+      @name == @specials[2] ? @sell_in : @sell_in -= 1
+    end
+
 end
 
 class Item
