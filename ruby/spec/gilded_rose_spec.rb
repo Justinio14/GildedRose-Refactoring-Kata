@@ -91,31 +91,62 @@ describe GildedRose do
   context "Backstage passes to a TAFKAL80ETC concert scenarios" do
     let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 15, quality = 20)}
     it "sell_in and quality will decrase by 1 when > 10 days" do
-      expect{ gilded_rose.update_quality}.to change{item.sell_in}.by(-1)
-      expect{ gilded_rose.update_quality}.to change{item.quality}.by(1)
+      gilded_rose.update_quality
+      expect(gilded_rose.sell_in).to eq(14)
+      expect(gilded_rose.quality).to eq(21)
     end
   end
 
   context "Backstage passes to a TAFKAL80ETC concert scenarios < 10 days" do
     let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 10, quality = 20)}
     it "sell_in and quality will decrase by 1 when < 10 days" do
-      expect{ gilded_rose.update_quality}.to change{item.quality}.by(2)
+      gilded_rose.update_quality
+      expect(gilded_rose.sell_in).to eq(9)
+      expect(gilded_rose.quality).to eq(22)
     end
   end
 
   context "Backstage passes to a TAFKAL80ETC concert scenarios" do
     let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 5, quality = 20)}
     it "sell_in and quality will decrase by 1 when < 5 days" do
-      expect{ gilded_rose.update_quality}.to change{item.sell_in}.by(-1)
-      expect{ gilded_rose.update_quality}.to change{item.quality}.by(3)
+      gilded_rose.update_quality
+      expect(gilded_rose.sell_in).to eq(4)
+      expect(gilded_rose.quality).to eq(23)
     end
   end
 
   context "Backstage passes to a TAFKAL80ETC concert scenarios" do
     let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 0, quality = 20)}
     it "sell_in will decrase by 1 when and quality will be 0 if days < 0 " do
-      expect{ gilded_rose.update_quality}.to change{item.sell_in}.by(-1)
-      expect(item.quality).to eq(0)
+      gilded_rose.update_quality
+      expect(gilded_rose.sell_in).to eq(-1)
+      expect(gilded_rose.quality).to eq(0)
+    end
+  end
+
+  context "Backstage passes to a TAFKAL80ETC concert scenarios" do
+    let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 15, quality = 50)}
+    it "quality will exceed 50" do
+      gilded_rose.update_quality
+      expect(gilded_rose.quality).to eq(50)
+    end
+  end
+
+  context "Backstage passes to a TAFKAL80ETC concert scenarios" do
+    let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 10, quality = 49)}
+    it "quality will exceed 50 if sell_in <= 10 days" do
+      gilded_rose.update_quality
+      expect(gilded_rose.sell_in).to eq(9)
+      expect(gilded_rose.quality).to eq(50)
+    end
+  end
+
+  context "Backstage passes to a TAFKAL80ETC concert scenarios" do
+    let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 5, quality = 48)}
+    it "quality will exceed 50 if sell_in <= 5 days" do
+      gilded_rose.update_quality
+      expect(gilded_rose.sell_in).to eq(4)
+      expect(gilded_rose.quality).to eq(50)
     end
   end
 
