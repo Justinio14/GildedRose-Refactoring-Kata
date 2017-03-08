@@ -18,22 +18,45 @@ describe GildedRose do
   context "standard items before sell in date passed" do
     let(:item) { Item.new(name= "Bread", sell_in= 5, quality = 10)}
       it "reduces sell_in and quality by 1" do
-        expect{ gilded_rose.update_quality}.to change{item.sell_in}.by (-1)
-        expect{ gilded_rose.update_quality}.to change{item.quality}.by (-1)
+        gilded_rose.update_quality
+        expect(gilded_rose.sell_in).to eq(4)
+        expect(gilded_rose.quality).to eq(9)
       end
   end
 
     context "standard items after sell in date passed" do
       let(:item) { Item.new(name= "Bread", sell_in= 0, quality = 10)}
       it "quality degrades by 2" do
-        expect{ gilded_rose.update_quality}.to change{item.quality}.by (-2)
+        gilded_rose.update_quality
+        expect(gilded_rose.sell_in).to eq(-1)
+        expect(gilded_rose.quality).to eq(8)
+      end
+    end
+
+    context "standard items quality floor at zero" do
+      let(:item) { Item.new(name= "Bread", sell_in= 10, quality = 0)}
+      it "quality cannot be less than zero when sell_in is positive" do
+        gilded_rose.update_quality
+        expect(gilded_rose.sell_in).to eq(9)
+        expect(gilded_rose.quality).to eq(0)
+      end
+    end
+
+    context "standard items quality floor at zero" do
+      let(:item) { Item.new(name= "Bread", sell_in= 0, quality = 1)}
+      it "quality cannot be less than zero when sell_in is negative" do
+        gilded_rose.update_quality
+        expect(gilded_rose.sell_in).to eq(-1)
+        expect(gilded_rose.quality).to eq(0)
       end
     end
 
     context "standard items quality floor at zero" do
       let(:item) { Item.new(name= "Bread", sell_in= 10, quality = 0)}
       it "quality cannot be less than zero" do
-        expect{ gilded_rose.update_quality}.not_to change{item.quality}
+        gilded_rose.update_quality
+        expect(gilded_rose.sell_in).to eq(9)
+        expect(gilded_rose.quality).to eq(0)
       end
     end
 

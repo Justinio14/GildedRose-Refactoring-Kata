@@ -1,14 +1,20 @@
 class GildedRose
 
-  def initialize(items)
-    @items = items
+attr_reader :name, :quality, :sell_in
 
+  def initialize(items)
+    #@items = []
+    @items = items
+    @specials = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros" ]
+    @name = ""
+    @quality = 0
+    @sell_in = 0
   end
 
   QUALITY_FLOOR = 0
   QUALITY_CAP = 50
   SULFURAS_QUALITY = 80
-  @specials = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros" ]
+
 
   def item_display()
     @items.each do |item|
@@ -41,22 +47,30 @@ class GildedRose
   end
 
   def standard
-    @sell_in > 0 ? @quality -= 1 : @quality -= 2
+    if @sell_in < 0 &&  @quality > (QUALITY_FLOOR + 2)
+      @quality -= 2
+    elsif @sell_in >= 0 &&  @quality > (QUALITY_FLOOR + 1)
+      @quality -= 1
+    else
+      @quality = QUALITY_FLOOR
+    end
   end
 
-  def sell_reduce
+  def sell_in_reduce
     @sell_in -= 1
   end
 
   def update_quality()
-    if @specials.exclude? @name
-      standard
-    elsif @specials[0] == @name
+    item_display
+    sell_in_reduce
+    if @specials[0] == @name
       aged_brie
     elsif @specials[1] == @name
       backstage
-    else
+    elsif @specials[2] == @name
       sulfuras
+    else
+      standard
     end
   end
 end
