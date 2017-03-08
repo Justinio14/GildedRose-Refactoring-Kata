@@ -133,7 +133,7 @@ describe GildedRose do
 
   context "Backstage passes to a TAFKAL80ETC concert scenarios" do
     let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 15, quality = 50)}
-    it "quality will exceed 50" do
+    it "quality will not exceed 50" do
       gilded_rose.update_quality
       expect(gilded_rose.quality).to eq(50)
     end
@@ -141,7 +141,7 @@ describe GildedRose do
 
   context "Backstage passes to a TAFKAL80ETC concert scenarios" do
     let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 10, quality = 49)}
-    it "quality will exceed 50 if sell_in <= 10 days" do
+    it "quality will not exceed 50 if sell_in <= 10 days" do
       gilded_rose.update_quality
       expect(gilded_rose.sell_in).to eq(9)
       expect(gilded_rose.quality).to eq(50)
@@ -150,7 +150,7 @@ describe GildedRose do
 
   context "Backstage passes to a TAFKAL80ETC concert scenarios" do
     let(:item) { Item.new(name= "Backstage passes to a TAFKAL80ETC concert", sell_in= 5, quality = 48)}
-    it "quality will exceed 50 if sell_in <= 5 days" do
+    it "quality will not exceed 50 if sell_in <= 5 days" do
       gilded_rose.update_quality
       expect(gilded_rose.sell_in).to eq(4)
       expect(gilded_rose.quality).to eq(50)
