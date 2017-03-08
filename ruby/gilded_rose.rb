@@ -15,7 +15,7 @@ class GildedRose
 
   def item_display()
     @items.each do |item|
-      @name = item.name
+      @name = item.name.downcase
       @sell_in = item.sell_in
       @quality = item.quality
     end
@@ -35,17 +35,17 @@ class GildedRose
   end
 
   def sell_in_reduce
-    @name == "Sulfuras, Hand of Ragnaros" ? @sell_in : @sell_in -= 1
+    @name == "sulfuras, hand of ragnaros" ? @sell_in : @sell_in -= 1
   end
 
   def item_selection
-    if @name == "Aged Brie"
+    if @name == "aged brie"
       aged_brie
-    elsif @name == "Backstage passes to a TAFKAL80ETC concert"
+    elsif @name == "backstage passes to a tafkal80etc concert"
       backstage
-    elsif @name == "Sulfuras, Hand of Ragnaros"
+    elsif @name == "sulfuras, hand of ragnaros"
       sulfuras
-    elsif @name == "Conjured"
+    elsif @name == "conjured"
       conjured
     else
       standard
