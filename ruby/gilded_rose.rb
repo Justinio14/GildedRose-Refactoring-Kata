@@ -9,9 +9,6 @@ class GildedRose
   def initialize(items)
     @items = []
     @items << items
-    @name = ""
-    @quality = 0
-    @sell_in = 0
   end
 
   def item_display()
