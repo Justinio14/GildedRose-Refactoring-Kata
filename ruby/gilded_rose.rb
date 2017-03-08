@@ -3,9 +3,8 @@ class GildedRose
   attr_reader :name, :sell_in, :quality
 
   def initialize(items)
-    #@items = []
     @items = items
-    @specials = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros" ]
+    @specials = ["Aged Brie", "Backstage passes to a TAFKAL80ETC concert", "Sulfuras, Hand of Ragnaros", "Conjured" ]
     @name = ""
     @quality = 0
     @sell_in = 0
@@ -34,6 +33,8 @@ class GildedRose
       backstage
     elsif @specials[2] == @name
       sulfuras
+    elsif @specials[3] == @name
+      conjured
     else
       standard
     end
@@ -52,15 +53,25 @@ class GildedRose
     def backstage
       if @sell_in < 0
         @quality = QUALITY_FLOOR
-      elsif @sell_in < 6 && @quality < (QUALITY_CAP - 3)
+      elsif @sell_in < 6 && @quality <= (QUALITY_CAP - 3)
         @quality += 3
-      elsif @sell_in < 11 && @quality < (QUALITY_CAP - 2)
+      elsif @sell_in < 11 && @quality <= (QUALITY_CAP - 2)
         @quality += 2
-      elsif @sell_in > 10 && @quality < (QUALITY_CAP - 1)
+      elsif @sell_in > 10 && @quality <= (QUALITY_CAP - 1)
         @quality += 1
       else
         @quality = QUALITY_CAP
       end
+    end
+
+    def conjured
+      if @sell_in >= 0 && @quality > (QUALITY_FLOOR + 1)
+        @quality -= 2
+      elsif @sell_in < 0 && @quality > (QUALITY_FLOOR + 3)
+        @quality -= 4
+      else
+        @quality = QUALITY_FLOOR
+     end
     end
 
     def standard

@@ -150,4 +150,38 @@ describe GildedRose do
     end
   end
 
+  context "Conjured items" do
+    let(:item) { Item.new(name= "Conjured", sell_in= 10, quality = 20)}
+    it "quality will redcue by 2 if sell_in >= 0" do
+      expect(gilded_rose.update_quality).to eq(18)
+    end
+  end
+
+  context "Conjured items" do
+    let(:item) { Item.new(name= "Conjured", sell_in= 10, quality = 1)}
+    it "quality will not go below zero if sell_in > 0" do
+      gilded_rose.update_quality
+      expect(gilded_rose.sell_in).to eq(9)
+      expect(gilded_rose.quality).to eq(0)
+    end
+  end
+
+  context "Conjured items" do
+    let(:item) { Item.new(name= "Conjured", sell_in= 0, quality = 10)}
+    it "quality will reduce by 4 if sell_in < 0" do
+      gilded_rose.update_quality
+      expect(gilded_rose.sell_in).to eq(-1)
+      expect(gilded_rose.quality).to eq(6)
+    end
+  end
+
+  context "Conjured items" do
+    let(:item) { Item.new(name= "Conjured", sell_in= 0, quality = 2)}
+    it "quality will not go below zero sell_in < 0" do
+      gilded_rose.update_quality
+      expect(gilded_rose.sell_in).to eq(-1)
+      expect(gilded_rose.quality).to eq(0)
+    end
+  end
+
 end
