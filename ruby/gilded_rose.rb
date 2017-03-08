@@ -56,32 +56,23 @@ class GildedRose
   end
 
   def backstage
-    case
-    when @sell_in < 0 then @quality = QUALITY_FLOOR
-    when @sell_in < 6 && @quality < (QUALITY_CAP - 2) then @quality += 3
-    when @sell_in < 11 && @quality < (QUALITY_CAP - 1) then @quality += 2
-    when @sell_in > 10 && @quality < QUALITY_CAP then @quality += 1
-    else
-      @quality = QUALITY_CAP
-    end
+    return @quality = QUALITY_FLOOR if @sell_in < 0
+    return @quality += 1  if @sell_in > 10 && @quality < QUALITY_CAP
+    return @quality += 3  if @sell_in < 6 && @quality < (QUALITY_CAP - 2)
+    return @quality += 2  if @sell_in < 11 && @quality < (QUALITY_CAP - 1)
+    return @quality = QUALITY_CAP
   end
 
   def conjured
-    case
-    when @sell_in >= 0 && @quality > (QUALITY_FLOOR + 1) then @quality -= 2
-    when @sell_in < 0 && @quality > (QUALITY_FLOOR + 3) then @quality -= 4
-    else
-      @quality = QUALITY_FLOOR
-    end
+    return @quality -= 2 if @sell_in >= 0 && @quality > (QUALITY_FLOOR + 1)
+    return @quality -= 4 if @sell_in < 0 && @quality > (QUALITY_FLOOR + 3)
+    return @quality = QUALITY_FLOOR
   end
 
   def standard
-    case
-    when @sell_in < 0 && @quality > (QUALITY_FLOOR + 1) then @quality -= 2
-    when @sell_in >= 0 && @quality > QUALITY_FLOOR then @quality -= 1
-    else
-      @quality = QUALITY_FLOOR
-    end
+    return @quality -= 1 if @sell_in >= 0 && @quality > QUALITY_FLOOR
+    return @quality -= 2 if @sell_in < 0 && @quality > (QUALITY_FLOOR + 1)
+    return @quality = QUALITY_FLOOR
   end
 
 end
