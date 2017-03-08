@@ -57,7 +57,7 @@ attr_reader :name, :quality, :sell_in
   end
 
   def sell_in_reduce
-    @sell_in -= 1
+    @name == @specials[2] ? @sell_in : @sell_in -= 1
   end
 
   def update_quality()

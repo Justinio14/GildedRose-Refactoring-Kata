@@ -62,11 +62,11 @@ describe GildedRose do
 
 
     context "Sulfuras, Hand of Ragnaros scenarios" do
-      let(:item) { Item.new(name= "Sulfuras, Hand of Ragnaros", sell_in= 10, quality = 80)}
-      it "sell_in and quality will not change" do
-        expect{ gilded_rose.update_quality}.not_to change{item.sell_in}
-        expect{ gilded_rose.update_quality}.not_to change{item.quality}
-        expect(item.quality).to eq(80)
+      let(:item) { Item.new(name= "Sulfuras, Hand of Ragnaros", sell_in= 10, quality = 70)}
+      it "sell_in will not change and quality will equal 80" do
+        gilded_rose.update_quality
+        expect(gilded_rose.sell_in).to eq(10)
+        expect(gilded_rose.quality).to eq(80)
       end
     end
 
