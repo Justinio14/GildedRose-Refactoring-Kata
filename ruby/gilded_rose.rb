@@ -63,11 +63,11 @@ class GildedRose
   def backstage
     if @sell_in < 0
       @quality = QUALITY_FLOOR
-    elsif @sell_in < 6 && @quality <= (QUALITY_CAP - 3)
+    elsif @sell_in < 6 && @quality < (QUALITY_CAP - 2)
       @quality += 3
-    elsif @sell_in < 11 && @quality <= (QUALITY_CAP - 2)
+    elsif @sell_in < 11 && @quality < (QUALITY_CAP - 1)
       @quality += 2
-    elsif @sell_in > 10 && @quality <= (QUALITY_CAP - 1)
+    elsif @sell_in > 10 && @quality < QUALITY_CAP
       @quality += 1
     else
       @quality = QUALITY_CAP
@@ -85,9 +85,9 @@ class GildedRose
   end
 
   def standard
-    if @sell_in < 0 &&  @quality > (QUALITY_FLOOR + 2)
+    if @sell_in < 0 && @quality > (QUALITY_FLOOR + 1)
       @quality -= 2
-    elsif @sell_in >= 0 &&  @quality > (QUALITY_FLOOR + 1)
+    elsif @sell_in >= 0 && @quality > QUALITY_FLOOR
       @quality -= 1
     else
       @quality = QUALITY_FLOOR
