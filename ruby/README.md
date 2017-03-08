@@ -20,3 +20,16 @@
 ### Diagram overview
 
 ![alt text] (https://github.com/Justinio14/GildedRose-Refactoring-Kata/tree/master/ruby/images/gilded_rose.png)
+
+### Instructions
+
+- make a new directory
+- clone git repo https://github.com/Justinio14/GildedRose-Refactoring-Kata
+- Open repel in terminal (irb /pry)
+	- require "./gilded_rose"
+	- create a new Item instance
+		- item = Item.new("Backstage passes to a TAFKAL80ETC concert", 3, 60)
+	- create a new GildedRose instance
+	 	- rose = GildedRose.new(item) 
+	- call rose.update_quality
+	- call rose.sell_in / rose.name / rose.quality to view item values
