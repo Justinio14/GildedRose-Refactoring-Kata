@@ -39,14 +39,11 @@ class GildedRose
   end
 
   def item_selection
-    if @name == "aged brie"
-      aged_brie
-    elsif @name == "backstage passes to a tafkal80etc concert"
-      backstage
-    elsif @name == "sulfuras, hand of ragnaros"
-      sulfuras
-    elsif @name == "conjured"
-      conjured
+    case @name
+    when "aged brie" then aged_brie
+    when "backstage passes to a tafkal80etc concert" then backstage
+    when "sulfuras, hand of ragnaros" then sulfuras
+    when "conjured" then conjured
     else
       standard
     end
@@ -61,34 +58,29 @@ class GildedRose
   end
 
   def backstage
-    if @sell_in < 0
-      @quality = QUALITY_FLOOR
-    elsif @sell_in < 6 && @quality < (QUALITY_CAP - 2)
-      @quality += 3
-    elsif @sell_in < 11 && @quality < (QUALITY_CAP - 1)
-      @quality += 2
-    elsif @sell_in > 10 && @quality < QUALITY_CAP
-      @quality += 1
+    case
+    when @sell_in < 0 then @quality = QUALITY_FLOOR
+    when @sell_in < 6 && @quality < (QUALITY_CAP - 2) then @quality += 3
+    when @sell_in < 11 && @quality < (QUALITY_CAP - 1) then @quality += 2
+    when @sell_in > 10 && @quality < QUALITY_CAP then @quality += 1
     else
       @quality = QUALITY_CAP
     end
   end
 
   def conjured
-    if @sell_in >= 0 && @quality > (QUALITY_FLOOR + 1)
-      @quality -= 2
-    elsif @sell_in < 0 && @quality > (QUALITY_FLOOR + 3)
-      @quality -= 4
+    case
+    when @sell_in >= 0 && @quality > (QUALITY_FLOOR + 1) then @quality -= 2
+    when @sell_in < 0 && @quality > (QUALITY_FLOOR + 3) then @quality -= 4
     else
       @quality = QUALITY_FLOOR
-   end
+    end
   end
 
   def standard
-    if @sell_in < 0 && @quality > (QUALITY_FLOOR + 1)
-      @quality -= 2
-    elsif @sell_in >= 0 && @quality > QUALITY_FLOOR
-      @quality -= 1
+    case
+    when @sell_in < 0 && @quality > (QUALITY_FLOOR + 1) then @quality -= 2
+    when @sell_in >= 0 && @quality > QUALITY_FLOOR then @quality -= 1
     else
       @quality = QUALITY_FLOOR
     end
