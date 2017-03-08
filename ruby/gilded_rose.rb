@@ -14,14 +14,19 @@ class GildedRose
   QUALITY_CAP = 50
   SULFURAS_QUALITY = 80
 
-
   def item_display()
     @items.each do |item|
       @name = item.name
-      @quality = item.quality
       @sell_in = item.sell_in
+      @quality = item.quality
     end
+    quality_limit
   end
+
+  def quality_limit
+    @quality > QUALITY_CAP ? @quality = QUALITY_CAP : @quality = @quality
+  end
+
 
 
   def update_quality()

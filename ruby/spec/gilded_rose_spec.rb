@@ -14,6 +14,13 @@ describe GildedRose do
     end
   end
 
+  context "Quality cap" do
+    let(:item) { Item.new(name= "Bread", sell_in= 10, quality = 60)}
+      it "Entered quality cannot exceed 50" do
+        gilded_rose.item_display
+        expect(gilded_rose.quality).to eq(50)
+      end
+  end
 
   context "standard items before sell in date passed" do
     let(:item) { Item.new(name= "Bread", sell_in= 5, quality = 10)}
