@@ -2,15 +2,15 @@ require './gilded_rose'
 
 describe GildedRose do
 
-  let(:gilded_rose) {described_class.new([item])}
+  let(:gilded_rose) {described_class.new(item)}
 
 
 
   describe "#update_quality" do
-    it "does not change the name" do
-      items = [Item.new("foo", 0, 0)]
-      GildedRose.new(items).update_quality()
-      expect(items[0].name).to eq "foo"
+    let(:item) { Item.new(name= "Bread", sell_in= 10, quality = 20)}
+    it "changes name to lowercase" do
+      gilded_rose.update_quality
+      expect(gilded_rose.name).to eq "bread"
     end
   end
 

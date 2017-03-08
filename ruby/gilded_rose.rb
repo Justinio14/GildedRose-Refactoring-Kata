@@ -7,7 +7,8 @@ class GildedRose
   SULFURAS_QUALITY = 80
 
   def initialize(items)
-    @items = items
+    @items = []
+    @items << items
     @name = ""
     @quality = 0
     @sell_in = 0
